@@ -1,13 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corporate Solutions</title>
+    <title>Iniciar Sesión</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <h1>Sistema de Gestión de Incapacidades Médicas</h1>
-    <script src="js.config.js"></script>    
+
+<body class="login-page">
+    <main class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Corporate Solutions</h1>
+                <p>Sistema de Gestión de Incapacidades Médicas</p>
+            </div>
+
+            <div id="alerta-global" class="alerta oculto"></div>
+
+            <form id="form-login" novalidate>
+                <div class="form-grupo">
+                    <label for="identificador">Usuario o correo electrónico</label>
+                    <input type="text" id="identificador" name="identificador"
+                        placeholder="Ej: admin o admin@empresa.com" required>
+                </div>
+
+                <div class="form-grupo">
+                    <label for="contrasena">Contraseña</label>
+                    <input type="password" id="contrasena" name="contrasena" placeholder="Ingrese su contraseña"
+                        required>
+                </div>
+
+                <button type="submit" class="btn btn-primario btn-bloque" id="btn-login">
+                    Iniciar Sesión
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/auth.js"></script>
 </body>
+
 </html>

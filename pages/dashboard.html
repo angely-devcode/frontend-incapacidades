@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Gestión</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-marca">
+            <h2>Corporate Solutions</h2>
+            <span>Gestión de Incapacidades</span>
+        </div>
+
+        <nav class="navbar-menu">
+            <button type="button" class="nav-btn activo" data-modulo="empleados">Empleados</button>
+            <button type="button" class="nav-btn" data-modulo="incapacidades">Incapacidades</button>
+            <button type="button" class="nav-btn" data-modulo="seguimiento">Seguimiento</button>
+        </nav>
+
+        <div class="navbar-usuario">
+            <span id="nombre-usuario-activo">Cargando usuario...</span>
+            <button type="button" id="btn-logout" class="btn btn-peligro btn-sm">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <main class="contenedor-principal">
+        <div id="alerta-global" class="alerta oculto"></div>
+
+        <!-- MÓDULO 1: EMPLEADOS -->
+        <section id="modulo-empleados" class="modulo-vista">
+            <div class="modulo-cabecera">
+                <h3>Gestión de Empleados</h3>
+                <button type="button" class="btn btn-primario" id="btn-nuevo-empleado">+ Nuevo Empleado</button>
+            </div>
+            <div id="contenedor-empleados" class="tarjeta">
+                <p class="texto-secundario">Módulo listo para conectar con ms-empleados.</p>
+            </div>
+        </section>
+
+        <!-- MÓDULO 2: INCAPACIDADES -->
+        <section id="modulo-incapacidades" class="modulo-vista oculto">
+            <div class="modulo-cabecera">
+                <h3>Gestión de Incapacidades Médicas</h3>
+                <button type="button" class="btn btn-primario" id="btn-nueva-incapacidad">+ Registrar Incapacidad</button>
+            </div>
+            <div id="contenedor-incapacidades" class="tarjeta">
+                <p class="texto-secundario">Módulo listo para conectar con ms-incapacidades.</p>
+            </div>
+        </section>
+
+        <!-- MÓDULO 3: SEGUIMIENTO -->
+        <section id="modulo-seguimiento" class="modulo-vista oculto">
+            <div class="modulo-cabecera">
+                <h3>Seguimiento y Trazabilidad</h3>
+            </div>
+            <div id="contenedor-seguimiento" class="tarjeta">
+                <p class="texto-secundario">Módulo listo para conectar con ms-seguimiento.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+</html>
