@@ -1,0 +1,24 @@
+:root {
+    --color-primario: #1e40af;
+    --color-primario-hover: #1d4ed8;
+    --color-fondo: #f1f5f9;
+    --color-superficie: #ffffff;
+    --color-texto: #0f172a;
+    --color-borde: #cbd5e1;
+    --color-exito: #16a34a;
+    --color-error: #dc2626;
+    --color-advertencia: #d97706;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    line-height: 1.5;
+}
