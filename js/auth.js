@@ -1,16 +1,52 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const formLogin = document.getElementById('form-login');
+    const btnLogout = document.getElementById('btn-logout');
     const nombreUsuarioActivo = document.getElementById('nombre-usuario-activo');
 
-    // Si estamos en dashboard.html, mostrar el nombre del usuario autenticado
+    // --- LÓGICA EN DASHBOARD (Validar sesión activa y cargar datos) ---
     if (nombreUsuarioActivo) {
-        const usuarioGuardado = JSON.parse(localStorage.getItem('auth_user') || 'null');
-        if (usuarioGuardado) {
-            nombreUsuarioActivo.textContent = `${usuarioGuardado.nombre} (${usuarioGuardado.rol})`;
+        const token = localStorage.getItem('auth_token');
+
+        if (!token) {
+            redirigirALogin();
+            return;
+        }
+
+        try {
+            const respuesta = await apiFetch(API_URLS.AUTH, '/validar-sesion', {
+                method: 'GET'
+            });
+
+            if (respuesta && respuesta.usuario) {
+                localStorage.setItem('auth_user', JSON.stringify(respuesta.usuario));
+                nombreUsuarioActivo.textContent = `${respuesta.usuario.nombre} (${respuesta.usuario.rol})`;
+            }
+        } catch (error) {
+            // Si el backend no responde o el token es inválido, redirigir al login
+            redirigirALogin();
+            return;
         }
     }
 
-    // Si estamos en index.html, escuchar el envío del formulario de inicio de sesión
+    // --- BOTÓN CERRAR SESIÓN ---
+    if (btnLogout) {
+        btnLogout.addEventListener('click', async () => {
+            try {
+                btnLogout.disabled = true;
+                btnLogout.textContent = 'Saliendo...';
+
+                await apiFetch(API_URLS.AUTH, '/logout', {
+                    method: 'POST'
+                });
+            } catch (error) {
+                console.warn('Aviso al cerrar sesión en servidor:', error.message);
+            } finally {
+                redirigirALogin();
+            }
+        });
+    }
+
+    // --- LÓGICA EN LOGIN ---
     if (formLogin) {
         formLogin.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -20,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const contrasena = document.getElementById('contrasena').value;
             const btnLogin = document.getElementById('btn-login');
 
-            // Validación básica en cliente
             if (!identificador || !contrasena) {
                 mostrarAlerta('Por favor completa ambos campos para iniciar sesión.', 'error');
                 return;
@@ -35,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify({ identificador, contrasena })
                 });
 
-                // Almacenar token y datos del usuario en localStorage
                 localStorage.setItem('auth_token', respuesta.token);
                 localStorage.setItem('auth_user', JSON.stringify(respuesta.usuario));
 
